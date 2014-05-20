@@ -2,7 +2,7 @@ class Apitome::DocsController < ActionController::Base
 
   layout Apitome.configuration.layout
 
-  helper_method :resources, :example, :formatted_body, :param_headers, :param_extras, :formatted_readme, :set_example, :id_for
+  helper_method :resources, :example, :formatted_body, :param_headers, :param_extras, :formatted_readme, :set_example, :id_for, :doc_format, :examples_for, :description_for
 
   def index
   end
@@ -63,4 +63,17 @@ class Apitome::DocsController < ActionController::Base
     str.gsub(/\.json$/, '').underscore.gsub(/[^0-9a-z]+/i, '-')
   end
 
+  def doc_format
+    return current_format if current_format
+    current_format = params[:doc_format].downcase if params[:doc_format].downcase.in?(['xml', 'json'])
+    current_format ||= 'xml'
+  end
+
+  def examples_for(resource)
+    resource['examples'].select{ |e| e['description'].match /#{doc_format}$/ }
+  end
+
+  def description_for(example)
+    example['description'].gsub /#{doc_format}$/, ''
+  end
 end

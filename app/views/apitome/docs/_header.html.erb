@@ -3,5 +3,16 @@
     <div class="navbar-header">
       <h1 class="navbar-brand"><a href="<%= Apitome.configuration.mount_at %>"><%= Apitome.configuration.title %></a></h1>
     </div>
+    <ul class="nav navbar-nav navbar-right">
+      <% ['XML', 'JSON'].each do |f| %>
+        <li>
+          <% if doc_format != f.downcase %>
+            <a href="<%= Apitome.configuration.mount_at %>?doc_format=<%=f%>"><%=f%></a>
+          <% else %>
+            <p class="navbar-text"><%=f%></p>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </header>
