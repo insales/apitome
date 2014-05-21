@@ -65,7 +65,7 @@ class Apitome::DocsController < ActionController::Base
 
   def doc_format
     return @current_format if @current_format
-    @current_format = params[:doc_format].downcase if params[:doc_format].downcase.in?(['xml', 'json'])
+    @current_format = params[:doc_format].downcase if params[:doc_format] && params[:doc_format].downcase.in?(['xml', 'json'])
     @current_format ||= 'xml'
   end
 
