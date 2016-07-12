@@ -19,7 +19,7 @@
               <span class="label label-danger required">required</span>
             <% end %>
           </td>
-          <td class="description"><%= param['description'] %></td>
+          <td class="description"><%= param['description'].html_safe %></td>
           <% param_extras(params).each do |extra| %>
             <td class="extra"><%= param[extra] %></td>
           <% end %>
